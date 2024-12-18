@@ -1,0 +1,27 @@
+services:
+  minimal-api:
+    image: akoscontainers/dtestapi:latest
+    container_name: minimal-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DT_LOGLEVEL=info
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dynatrace-oneagent
+    volumes:
+      - /opt/dynatrace/oneagent:/opt/dynatrace/oneagent:ro
+
+  dynatrace-oneagent:
+    image: "dynatrace/oneagent"
+    container_name: dynatrace-oneagent
+    environment:
+      - ONEAGENT_INSTALLER_SCRIPT_URL=ValueOfTheInstallerScript
+      - ONEAGENT_INSTALLER_SCRIPT_ARGS=--set-host-group=production
+      - ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=ValueOfTheToken
+    privileged: true
+    pid: "host"
+    network_mode: "host"
+    volumes:
+      - /:/mnt/root:ro
+      - /var/run/docker.sock:/var/run/docker.sock
