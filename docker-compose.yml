@@ -16,9 +16,9 @@ services:
     image: "dynatrace/oneagent"
     container_name: dynatrace-oneagent
     environment:
-      - ONEAGENT_INSTALLER_SCRIPT_URL=ScriptUrlValue
+      - ONEAGENT_INSTALLER_SCRIPT_URL=ValueOfScriptUrl
       - ONEAGENT_INSTALLER_SCRIPT_ARGS=--set-host-group=production
-      - ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=ToeknValue
+      - ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=ValueOfToken
     privileged: true
     pid: "host"
     network_mode: "host"
