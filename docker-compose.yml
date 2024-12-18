@@ -10,21 +10,21 @@ services:
     depends_on:
       - dynatrace-oneagent
     volumes:
-      - ./dynatrace/oneagent:/opt/dynatrace/oneagent:ro
+      - /opt/dynatrace/oneagent:/opt/dynatrace/oneagent
 
   dynatrace-oneagent:
     image: "dynatrace/oneagent"
     container_name: dynatrace-oneagent
     environment:
-      - ONEAGENT_INSTALLER_SCRIPT_URL=ValueOfScriptUrl
+      - ONEAGENT_INSTALLER_SCRIPT_URL=ValueOfEnv
       - ONEAGENT_INSTALLER_SCRIPT_ARGS=--set-host-group=production
-      - ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=ValueOfToken
+      - ONEAGENT_INSTALLER_DOWNLOAD_TOKEN=ValueOfEnv
     privileged: true
     pid: "host"
     network_mode: "host"
     volumes:
-      - /:/mnt/root:ro
+      - /:/mnt/root
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./dynatrace/log:/var/log/dynatrace
-      - ./dynatrace/lib/oneagent:/var/lib/dynatrace/oneagent
-      - ./dynatrace/lib/enrichment:/var/lib/dynatrace/enrichment
+      - /var/log/dynatrace:/var/log/dynatrace
+      - /var/lib/dynatrace/oneagent:/var/lib/dynatrace/oneagent
+      - /var/lib/dynatrace/enrichment:/var/lib/dynatrace/enrichment
